@@ -21,12 +21,18 @@ import {
   BorderStyle
   
 } from "docx";
+////to be changed later
+const REACT_APP_API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
+
+  ///
 const generateCLOTable = (clos = []) => {
   if (clos.length === 0) {
     return new Paragraph({
       children: [new TextRun({ text: "No CLOs listed", font: "Times New Roman", size: 20 })],
     });
   }
+
+
 
   return new Table({
     width: { size: 100, type: WidthType.PERCENTAGE },
@@ -279,7 +285,8 @@ const CourseManager = () => {
 
   const fetchCourses = async () => {
     try {
-      const res = await axios.get('http://localhost:5001/courses');
+     
+      const res = await axios.get(`${REACT_APP_API_BASE_URL}/courses`);
       setCourses(res.data);
     } catch (err) {
       console.error('Fetch error:', err);

@@ -18,7 +18,10 @@ import {
 import AddIcon from '@mui/icons-material/Add';
 import DeleteIcon from '@mui/icons-material/Delete';
 import axios from 'axios';
+/// to be changed later
+const REACT_APP_API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
+  ////
 const Transition = forwardRef(function Transition(props, ref) {
   return <Slide direction="up" ref={ref} {...props} />;
 });
@@ -142,12 +145,15 @@ const handleSave = async () => {
     if (cleanData._id) {
       // Existing course: set updatedBy only
       cleanData.updatedBy = username;
-      await axios.put(`http://localhost:5001/courses/${cleanData._id}`, cleanData);
+ 
+      await axios.put(   `${REACT_APP_API_BASE_URL}/courses/${cleanData._id}`,  cleanData
+);
+     
     } else {
       // New course: set createdBy and updatedBy both
       cleanData.createdBy = username;
       cleanData.updatedBy = username;
-      await axios.post('http://localhost:5001/courses', cleanData);
+      await axios.post(`${REACT_APP_API_BASE_URL}/courses/`, cleanData);
     }
 
     onClose();

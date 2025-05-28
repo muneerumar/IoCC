@@ -24,8 +24,11 @@ import AddIcon from '@mui/icons-material/Add';
 import EditIcon from '@mui/icons-material/Edit';
 import DeleteIcon from '@mui/icons-material/Delete';
 import CourseModal from './CourseModal';
+/// to be changed later
+const REACT_APP_API_BASE_URL = process.env.REACT_APP_API_BASE_URL;
 
-const API_BASE_URL = process.env.REACT_APP_API_URL || 'http://localhost:5001';
+////
+
 
 const CourseList = ({
   onSelectCourseIds,
@@ -59,7 +62,7 @@ const [openSuccess, setOpenSuccess] = useState(false);
     setLoading(true);
     setError(null);
     try {
-      const response = await axios.get(`${API_BASE_URL}/courses`);
+      const response = await axios.get(`${REACT_APP_API_BASE_URL}/courses`);
       setInternalCourses(response.data);
     } catch (err) {
       console.error('Error fetching courses:', err);
@@ -86,7 +89,7 @@ const handleCloseSuccess = () => {
 
     try {
       setLoading(true);
-      await axios.delete(`${API_BASE_URL}/courses/${id}`);
+      await axios.delete(`${REACT_APP_API_BASE_URL}/courses/${id}`);
       if (!isControlled) {
         await fetchCourses();
       }
